@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/static/sidebar1.css">
+</head>
+<body>
+    <div class="sidebar-overlay"></div>
+    
+    <button id="sidebarToggle">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div id="sidebar">
+        <div class="admin-label">
+            <i class="fa-solid fa-user-shield me-2"></i>ADMIN
+        </div>
+        
+        <div class="profile-section">
+            <img class="profile-image" src="/static/images/pexels-tnarg-1560694.jpg" alt="Profile">
+            <div class="welcome-text mt-3">Hello, Admin!</div>
+        </div>
+
+        <nav class="mt-4">
+            <!-- Users Section -->
+            <div class="nav-section">
+                <a href="{{ url_for('user_data') }}" class="menu-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span class="menu-text">USERS</span>
+                </a>
+            </div>
+            <!-- Seller Section -->
+            <div class="nav-section">
+                <a href="#" class="menu-item">
+                    <i class="fa-solid fa-store"></i>
+                    <span class="menu-text">SELLER</span>
+                </a>
+            </div>
+
+            <!-- Logout Section -->
+            <div class="nav-section">
+                <a href="#" class="menu-item">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span class="menu-text">LOG OUT</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <div id="content">
+        <!-- Your main content goes here -->
+        <h1>Admin Dashboard</h1>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const overlay = document.querySelector('.sidebar-overlay');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const isClickInsideSidebar = sidebar.contains(event.target);
+            const isClickOnToggle = sidebarToggle.contains(event.target);
+            
+            if (window.innerWidth <= 768 && !isClickInsideSidebar && !isClickOnToggle && sidebar.classList.contains('active')) {
+                toggleSidebar();
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                overlay.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
